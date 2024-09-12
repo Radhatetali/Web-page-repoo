@@ -2,7 +2,7 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "S3 Bucket with KMS Encryption and Bucket Policy",
     "Resources": {
-      "tomkey": {
+      "tomkey1": {
         "Type": "AWS::KMS::Key",
         "Properties": {
           "Description": "KMS Key for S3 bucket encryption",
@@ -48,7 +48,7 @@
         "Type": "AWS::S3::Bucket",
         "Properties": {
           "BucketName": {
-            "Fn::Sub": "jerry-bucket-${AWS::AccountId}-${AWS::Region}"
+            "Fn::Sub": "jerry-bucket-edit-${AWS::AccountId}-${AWS::Region}"
           },
           "BucketEncryption": {
             "ServerSideEncryptionConfiguration": [
@@ -56,7 +56,7 @@
                 "ServerSideEncryptionByDefault": {
                   "SSEAlgorithm": "aws:kms",
                   "KMSMasterKeyID": {
-                    "Ref": "tomkey"
+                    "Ref": "tomkey1"
                   }
                 }
               }
@@ -64,11 +64,11 @@
           }
         }
       },
-      "jerrybucketPolicy": {
+      "jerrybucketeditPolicy": {
         "Type": "AWS::S3::BucketPolicy",
         "Properties": {
           "Bucket": {
-            "Ref": "jerrybucket"
+            "Ref": "jerrybucketedit"
           },
           "PolicyDocument": {
             "Version": "2012-10-17",
@@ -78,7 +78,7 @@
                 "Principal": "*",
                 "Action": "s3:PutObject",
                 "Resource": {
-                  "Fn::Sub": "arn:aws:s3:::${jerrybucket}/*"
+                  "Fn::Sub": "arn:aws:s3:::${jerrybucketedit}/*"
                 },
                 "Condition": {
                   "StringNotEquals": {
