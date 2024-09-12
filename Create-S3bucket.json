@@ -2,7 +2,7 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "S3 Bucket with KMS Encryption and Bucket Policy",
     "Resources": {
-      "tomkey1": {
+      "tomkey2": {
         "Type": "AWS::KMS::Key",
         "Properties": {
           "Description": "KMS Key for S3 bucket encryption",
